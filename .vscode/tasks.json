@@ -1,0 +1,57 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "command": "tsc",
+  "tasks": [
+    {
+      "type": "typescript",
+      "tsconfig": "tsconfig.json",
+      "problemMatcher": [
+        "$tsc"
+      ]
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Run Tests",
+      "type": "npm",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "script": "test",
+      "problemMatcher": {
+        "owner": "javascript",
+        "fileLocation": [
+          "absolute"
+        ],
+        "severity": "error",
+        "pattern": [
+          {
+            "regexp": "Message.*"
+          },
+          {
+            "regexp": "[^ ](.*)",
+            "message": 1
+          },
+          {
+            "regexp": "Stack.*"
+          },
+          {
+            "regexp": "at +.*\\((.*\\\\*.ts):(\\d+):(\\d+)\\)",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ]
+      }
+    }
+  ]
+}

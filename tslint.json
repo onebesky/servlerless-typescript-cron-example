@@ -1,0 +1,47 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {
+    "object-literal-shorthand": false,
+    "ordered-imports": false,
+    "quotemark": false,
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "trailing-comma": false,
+    "no-unused-expression": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-console": false,
+    "curly": false,
+    "comment-format": false
+  },
+  "rules": {
+    "object-literal-shorthand": false,
+    "ordered-imports": false,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "max-line-length": [
+      true,
+      140
+    ],
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "trailing-comma": false,
+    "no-unused-expression": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-console": false,
+    "curly": false,
+    "comment-format": false,
+    "semicolon": [
+      true,
+      "always"
+    ]
+  },
+  "rulesDirectory": [],
+  "exclude": [
+    "migration/*.ts"
+  ]
+}

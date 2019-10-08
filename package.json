@@ -1,0 +1,64 @@
+{
+  "name": "example-cron-app",
+  "version": "0.0.2",
+  "private": true,
+  "engine": "8.10.X",
+  "scripts": {
+    "execute": "yarn build && serverless invoke local --function cron-template",
+    "build": "rm -rf dist && tsc",
+    "test": "yarn build && node scripts/jasmine.js",
+    "deploy-test": "yarn install && yarn build && yarn sls deploy -s test",
+    "deploy-production": "yarn install && yarn build && yarn sls deploy -s production",
+    "watch-ts": "tsc -w",
+    "watch-tests": "nodemon --delay 500ms -w dist node scripts/jasmine.js",
+    "tests": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Jasmine\" -c \"yellow.bold,cyan.bold\" \"yarn watch-ts\" \"yarn watch-tests\"",
+    "coverage": "nyc npm test"
+  },
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/jasmine": "^3.3.2",
+    "@types/node": "^12.0.0",
+    "@types/serverless": "^1.18.2",
+    "concurrently": "^5.0.0",
+    "jasmine": "^3.3.1",
+    "jasmine-core": "^3.3.0",
+    "jasmine-expect": "^4.0.1",
+    "jasmine-reporters": "^2.3.2",
+    "jasmine-ts-console-reporter": "^3.1.1",
+    "nodemon": "^1.18.9",
+    "nyc": "^14.1.0",
+    "serverless": "^1.41.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
+  },
+  "nyc": {
+    "sourceMap": true,
+    "instrument": true,
+    "all": true,
+    "cache": true,
+    "include": [
+      "dist/**/*.js"
+    ],
+    "exclude": [
+      "dist/migration/**",
+      "dist/*.js",
+      "**/*routes.js",
+      "dist/**/*.spec.js",
+      "dist/bin/*.js",
+      "dist/server/core/**/*.js",
+      "dist/**/*.model.js"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "reporter": [
+      "html",
+      "text",
+      "text-summary"
+    ]
+  },
+  "dependencies": {
+    "aws-sdk": "^2.450.0",
+    "serverless-pseudo-parameters": "^2.4.0"
+  }
+}

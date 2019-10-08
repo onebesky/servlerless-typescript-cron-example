@@ -1,0 +1,48 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: example-cron-app # NOTE: update this with your service name
+
+plugins:
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-1
+  stage: ${opt:stage, 'dev'}
+  profile: ${opt:profile, 'default'}
+  stack: example-cron-app
+  # put your AWS secrets manager encryption Key ID here from https://us-west-1.console.aws.amazon.com/kms/home?region=us-west-1#/kms/defaultKeys
+  awsKmsKeyArn: arn:aws:kms:#{AWS::Region}:#{AWS::AccountId}:key/myKeyId
+  # There is a limit of 100 buckets; this puts all the functions into the same bucket
+  deploymentBucket:
+    name: myorgname-lambda.${opt:stage, 'dev'}
+  # Allow access to Secrets manager
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - secretsmanager:GetSecretValue
+      Resource: arn:aws:secretsmanager:#{AWS::Region}:#{AWS::AccountId}:secret:${self:provider.stage}/*
+
+functions:
+  cron-template:
+    name: example-cron-app-cron-${opt:stage, 'dev'}
+    handler: dist/index.run
+    memorySize: 512 # optional, in MB, default is 1024
+    timeout: 900 # maximum execution time is 15m
+    events:
+      # Invoke Lambda function every minute
+      - schedule: rate(1 minute)
+    environment:
+      STAGE: ${opt:stage, 'dev'}

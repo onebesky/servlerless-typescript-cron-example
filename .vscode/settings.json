@@ -1,0 +1,12 @@
+{
+  "git.ignoreLimitWarning": true,
+  "tslint.jsEnable": true,
+  "editor.formatOnSave": true,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "typescript.format.insertSpaceAfterTypeAssertion": true,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": false
+  }
+}
