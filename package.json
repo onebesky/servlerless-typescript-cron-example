@@ -58,7 +58,7 @@
     ]
   },
   "dependencies": {
-    "aws-sdk": "^2.450.0",
+    "aws-sdk": "^2.814.0",
     "serverless-pseudo-parameters": "^2.4.0"
   }
 }
